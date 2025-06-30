@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "zip -r release.zip . -x 'node_modules*' '*.git*'"
+    "build": "zip -r release.zip . -x 'node_modules*' '*.git*'",
   },
   "keywords": [],
   "author": "",
