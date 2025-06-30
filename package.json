@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "zip -r release.zip . -x 'node_modules*' '*.git*'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^30.0.3"
+    "jest": "^30.0.3",
+    "zip": "^1.2.0"
   }
 }
