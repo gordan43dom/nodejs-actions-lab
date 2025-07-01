@@ -44,7 +44,7 @@ jobs:
         echo "build_path=dist" >> $GITHUB_OUTPUT
      # Add this step to check for the file
     - name: Verify package exists
-      run: test -f release.zip
+      run: test -f ${{ steps.build_step.outputs.build_path }}
     - name: Upload the package
       uses: actions/upload-artifact@v4
       with:
