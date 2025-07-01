@@ -40,8 +40,8 @@ jobs:
       id: build_step
       run: |
         # This command runs your build
-        npm run build
-        echo "build_path=dist" >> $GITHUB_OUTPUT
+        PACKAGE_NAME=$(npm run build --silent)
+        echo "package_path=$PACKAGE_NAME" >> $GITHUB_OUTPUT
      # Add this step to check for the file
     - name: Verify package exists
       run: test -f ${{ steps.build_step.outputs.build_path }}
