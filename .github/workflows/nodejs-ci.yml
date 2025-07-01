@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Run tests
         run: npm test
-  build-and-package:
+  build:
     runs-on: ubuntu-latest
     needs: test
     # This job ONLY runs for pushes to the main branch, not for pull requests
@@ -35,14 +35,8 @@ jobs:
       with:
         node-version: '20.x'
     - name: Install dependencies
-      run: npm install
-
-    - name: Print build greeting
-      env: 
-        GREETING: ${{ secrets.BUILD_GREETING}}
-      run: echo $GREETING
-
-    - name: Build and zipp the package
+      run: npm ci
+    - name: Build and zip the package
       run: npm run build
 
     - name: Upload the package
@@ -50,3 +44,19 @@ jobs:
       with:
         name: node-app-package  
         path: release.zip
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment: 
+      name: production
+      url: https://example.com
+    steps:
+    - name: Download the package
+      uses: actions/download-artifact@v4
+      with:
+        name: node-app-package
+    - name: "Simulate deployment"
+      run: |
+        echo "Deployed to production"
+        ls -la
+        echo "Deployment successfull"
