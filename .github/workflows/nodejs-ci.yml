@@ -42,7 +42,9 @@ jobs:
         # This command runs your build
         npm run build
         echo "build_path=dist" >> $GITHUB_OUTPUT
-
+     # Add this step to check for the file
+    - name: Verify package exists
+      run: test -f release.zip
     - name: Upload the package
       uses: actions/upload-artifact@v4
       with:
