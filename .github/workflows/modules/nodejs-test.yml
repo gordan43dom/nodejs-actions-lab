@@ -1,0 +1,30 @@
+name: Reusable Node.js Test
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: 'Node.js version to test with'
+        required: true
+        type: string
+        default: '20.x'
+    secrets:
+      NPM_TOKEN:
+        description: 'Token for private NPM packages'
+        required: false
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            - name: Use Node.js ${{ inputs.node-version }}
+              uses: actions/setup-node@v4
+              with:
+                node-version: ${{ inputs.node-version }}
+            - name: Install dependencies
+              run: npm ci
+              env: 
+                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - name: Run tests
+              run: npm test
